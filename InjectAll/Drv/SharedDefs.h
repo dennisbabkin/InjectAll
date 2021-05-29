@@ -28,10 +28,10 @@
 #pragma once
 
 
-#define DBG_PREFIX_ALL "InjectAll_"					//prefix to be added in all DbgPrint calls
+#define DBG_PREFIX_ALL "InjectAll_"              //prefix to be added in all DbgPrint calls
 
-#define INJECTED_DLL_FILE_NAME64 "FAKE64.DLL"		//File name of the injected 64-bit DLL (name only!)
-#define INJECTED_DLL_FILE_NAME32 "FAKE32.DLL"		//File name of the injected 32-bit DLL (name only!)
+#define INJECTED_DLL_FILE_NAME64 "FAKE64.DLL"    //File name of the injected 64-bit DLL (name only!)
+#define INJECTED_DLL_FILE_NAME32 "FAKE32.DLL"    //File name of the injected 32-bit DLL (name only!)
 
 #ifdef _WIN64
 #define INJECTED_DLL_FILE_NAME INJECTED_DLL_FILE_NAME64
