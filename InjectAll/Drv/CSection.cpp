@@ -690,7 +690,7 @@ NTSTATUS CSection::InjectDLL(DLL_STATS* pDllStats)
 	//      NormalRoutine = [optional] Is called after KernelRoutine at PASSIVE IRQL.
 	//      RundownRoutine = [optional] runs only if thread was closed before it had a chance 
 	//                                  to run and it had pending APCs. Otherwise it's not called.
-	//									If RundownRoutine is called, neither KernelRoutine nor 
+	//                                  If RundownRoutine is called, neither KernelRoutine nor 
 	//                                  NormalRoutine are called.
 
 	//The reason we are coding KernelRoutine, RundownRoutine, NormalRoutine the way we did:
@@ -700,9 +700,9 @@ NTSTATUS CSection::InjectDLL(DLL_STATS* pDllStats)
 	//Set up "regular" kernel APC (since we specified NormalRoutine and KernelMode)
 	KeInitializeApc(pApc, KeGetCurrentThread(),
 		OriginalApcEnvironment,
-		KernelRoutine, RundownRoutine, NormalRoutine,		//These routines are implemented in Assembly language - see asm64.asm or asm32.asm
-		KernelMode,											//Kernel APC
-		pApc												//Pass PKAPC as context into NormalRoutine
+		KernelRoutine, RundownRoutine, NormalRoutine,     //These routines are implemented in Assembly language - see asm64.asm or asm32.asm
+		KernelMode,                                       //Kernel APC
+		pApc                                              //Pass PKAPC as context into NormalRoutine
 		);
 
 	//Prevent our driver from unloading be incrementing its reference count
@@ -752,10 +752,10 @@ extern "C" BOOL __stdcall RundownRoutine_Proc(PKAPC pApc)
 {
 	//Called from the asm64.asm/asm32.asm file for the RundownRoutine() call back
 	//INFO: 
-	//			runs only if thread was closed before it had a chance 
-	//          to run and it had pending APCs. Otherwise it's not called.
-	//			If RundownRoutine is called, neither KernelRoutine nor 
-	//          NormalRoutine are called.
+	//         runs only if thread was closed before it had a chance 
+	//         to run and it had pending APCs. Otherwise it's not called.
+	//         If RundownRoutine is called, neither KernelRoutine nor 
+	//         NormalRoutine are called.
 	//RETURN:
 	//		= TRUE to invoke safely ObDereferenceObject(g_DriverObject)
 	ASSERT(pApc);
@@ -925,9 +925,9 @@ extern "C" BOOL __stdcall NormalRoutine_Proc(PVOID NormalContext, PVOID SystemAr
 		ASSERT(BaseAddress);
 		KeInitializeApc(pApc, KeGetCurrentThread(),
 			OriginalApcEnvironment,
-			KernelRoutine, RundownRoutine, p_umNormalRoutine,	//These routines are implemented in Assembly language - see asm64.asm or asm32.asm
-			UserMode,											//User-mode APC
-			BaseAddress											//Pass BaseAddress as context into normal routine
+			KernelRoutine, RundownRoutine, p_umNormalRoutine,      //These routines are implemented in Assembly language - see asm64.asm or asm32.asm
+			UserMode,                                              //User-mode APC
+			BaseAddress                                            //Pass BaseAddress as context into normal routine
 			);
 
 		//Prevent our driver from unloading since we're queuing another APC
@@ -935,8 +935,8 @@ extern "C" BOOL __stdcall NormalRoutine_Proc(PVOID NormalContext, PVOID SystemAr
 
 		//And initialize the APC
 		if(KeInsertQueueApc(pApc,
-			p_umDllName,				//SystemArgument1 = points to injected DLL name as const WCHAR* (null terminated)
-			NULL,						//SystemArgument2 = not used
+			p_umDllName,                //SystemArgument1 = points to injected DLL name as const WCHAR* (null terminated)
+			NULL,                       //SystemArgument2 = not used
 			IO_NO_INCREMENT))
 		{
 			//Queued APC OK
