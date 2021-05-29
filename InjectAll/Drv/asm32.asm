@@ -119,7 +119,7 @@ _KernelRoutine@20 PROC
 	call            _KernelRoutine_Proc@20
 
 	; Act depending on return value
-	test	eax, eax
+	test            eax, eax
 	jz              @@1
 
 	; Then invoke ObDereferenceObject(g_DriverObject)
@@ -159,7 +159,7 @@ _NormalRoutine@12 PROC
 	call            _NormalRoutine_Proc@12
 
 	; Act depending on return value
-	test	eax, eax
+	test            eax, eax
 	jz              @@1
 
 	; Then invoke ObDereferenceObject(g_DriverObject)
