@@ -27,13 +27,13 @@
 
 #pragma once
 
-#include <Windows.h>				//Win32 APIs
-#include <winnt.h>					//Internal function
-#include <winternl.h>				//Also internal stuff
+#include <Windows.h>                //Win32 APIs
+#include <winnt.h>                  //Internal function
+#include <winternl.h                //Also internal stuff
 
 #include <stddef.h>
 
-#include "..\Drv\SharedDefs.h"		//Shared definitions
+#include "..\Drv\SharedDefs.h"      //Shared definitions
 
 
 
@@ -41,7 +41,7 @@
 #define DBG_FILE_PATH  L"C:\\InjectAll\\Log_InjectAll.txt"          //Log file to write from the injected DLL
 
 
-#define DBG_PREFIX DBG_PREFIX_ALL INJECTED_DLL_FILE_NAME ": "		//Prefix to be added in all DbgPrint call in this project
+#define DBG_PREFIX DBG_PREFIX_ALL INJECTED_DLL_FILE_NAME ": "       //Prefix to be added in all DbgPrint call in this project
 
 #define DbgPrintLine(s, ...) LogToFileFmt(DBG_PREFIX s "\r\n", __VA_ARGS__)
 
