@@ -26,22 +26,22 @@
 
 
 
-#include "CFunc.h"				//Helper functions
-#include "CSection.h"			//Section/DLL specific
+#include "CFunc.h"                 //Helper functions
+#include "CSection.h"              //Section/DLL specific
 
 
 
 //Global variables
 extern "C" {
-	PDRIVER_OBJECT g_DriverObject;			//Driver object - read-only (for reference counting)
+	PDRIVER_OBJECT g_DriverObject;          //Driver object - read-only (for reference counting)
 }
 
-IMAGE_LOAD_FLAGS g_Flags;					//Global notification flags
+IMAGE_LOAD_FLAGS g_Flags;                       //Global notification flags
 
-CSection sec;								//Native section object
+CSection sec;                                   //Native section object
 
 #ifdef _WIN64
-CSection secWow;							//WOW64 section object (used only for a 64-bit build)
+CSection secWow;                                //WOW64 section object (used only for a 64-bit build)
 #endif
 
 
@@ -68,12 +68,12 @@ void OnLoadImage(
 
 
 	//We are looking for kernel32.dll only - skip the rest
-	if(!ImageInfo->SystemModeImage &&									//Skip anything mapped into kernel
-		ProcessId == PsGetCurrentProcessId() &&							//Our section can be mapped remotely into tis process - we don't need that
-		CFunc::IsSuffixedUnicodeString(FullImageName, &kernel32) &&		//Need kernel32.dll only
-		CFunc::IsMappedByLdrLoadDll(&kernel32)							//Make sure that it's a call from the LdrLoadDll() function
+	if(!ImageInfo->SystemModeImage &&                                                //Skip anything mapped into kernel
+		ProcessId == PsGetCurrentProcessId() &&                                  //Our section can be mapped remotely into tis process - we don't need that
+		CFunc::IsSuffixedUnicodeString(FullImageName, &kernel32) &&              //Need kernel32.dll only
+		CFunc::IsMappedByLdrLoadDll(&kernel32)                                   //Make sure that it's a call from the LdrLoadDll() function
 #if defined(_DEBUG) && defined(LIMIT_INJECTION_TO_PROC)		
-		&& CFunc::IsSpecificProcessW(ProcessId, LIMIT_INJECTION_TO_PROC, FALSE)		//For debug build limit it to specific process only (for testing purposes)
+		&& CFunc::IsSpecificProcessW(ProcessId, LIMIT_INJECTION_TO_PROC, FALSE)  //For debug build limit it to specific process only (for testing purposes)
 #endif
 		)
 	{
