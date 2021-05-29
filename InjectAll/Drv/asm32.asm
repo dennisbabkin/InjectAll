@@ -47,9 +47,9 @@ _RundownRoutine@4 PROC
 	; [esp + 4] = pointer to _KAPC
 
 	; Move parameters for the forwarded call to function & push back return address
-	mov		eax, [esp]
-	xchg	[esp + 4h], eax
-	mov		[esp], eax
+	mov             eax, [esp]
+	xchg            [esp + 4h], eax
+	mov             [esp], eax
 
 	; During call to RundownRoutine:                 During call to RundownRoutine_Proc
 	;
@@ -61,11 +61,11 @@ _RundownRoutine@4 PROC
 	; First call our RundownRoutine_Proc from the C file
 	;  BOOL __stdcall RundownRoutine_Proc(PKAPC pApc)
 	;
-	call	_RundownRoutine_Proc@4
+	call            _RundownRoutine_Proc@4
 
 	; Act depending on return value
-	test	eax, eax
-	jz		@@1
+	test            eax, eax
+	jz              @@1
 
 	; Then invoke ObDereferenceObject(g_DriverObject)
 	;INFO: ObfDereferenceObject is declared as __fastcall calling convention
@@ -73,8 +73,8 @@ _RundownRoutine@4 PROC
 	; IMPORTANT: We need to invoke ObfDereferenceObject via a JMP because it will be freeing the driver
 	;            memory that our code runs from, thus can't return into it via a CALL instruction!
 	;
-	mov		ecx, _g_DriverObject
-	jmp		__imp_@ObfDereferenceObject@4
+	mov             ecx, _g_DriverObject
+	jmp             __imp_@ObfDereferenceObject@4
 
 @@1:
 	ret
@@ -94,13 +94,13 @@ _KernelRoutine@20 PROC
 	; [ESP + 14h]  = pointer to SystemArgument2
 
 	; Move parameters for the forwarded call to function & push back return address
-	mov		eax, [esp]
-	xchg	[esp + 14h], eax
-	xchg	[esp + 10h], eax
-	xchg	[esp + 0Ch], eax
-	xchg	[esp + 8h], eax
-	xchg	[esp + 4h], eax
-	mov		[esp], eax
+	mov             eax, [esp]
+	xchg            [esp + 14h], eax
+	xchg            [esp + 10h], eax
+	xchg            [esp + 0Ch], eax
+	xchg            [esp + 8h], eax
+	xchg            [esp + 4h], eax
+	mov             [esp], eax
 
 	; During call to KernelRoutine:                  During call to KernelRoutine_Proc
 	; 
@@ -116,11 +116,11 @@ _KernelRoutine@20 PROC
 	; First call our KernelRoutine_Proc from the C file
 	;  BOOL __stdcall KernelRoutine_Proc(PKAPC pApc, PKNORMAL_ROUTINE* NormalRoutine, PVOID* NormalContext, PVOID* SystemArgument1, PVOID* SystemArgument2)
 	;
-	call	_KernelRoutine_Proc@20
+	call            _KernelRoutine_Proc@20
 
 	; Act depending on return value
 	test	eax, eax
-	jz		@@1
+	jz              @@1
 
 	; Then invoke ObDereferenceObject(g_DriverObject)
 	;INFO: ObfDereferenceObject is declared as __fastcall calling convention
@@ -128,8 +128,8 @@ _KernelRoutine@20 PROC
 	; IMPORTANT: We need to invoke ObfDereferenceObject via a JMP because it will be freeing the driver
 	;            memory that our code runs from, thus can't return into it via a CALL instruction!
 	;
-	mov		ecx, _g_DriverObject
-	jmp		__imp_@ObfDereferenceObject@4
+	mov             ecx, _g_DriverObject
+	jmp             __imp_@ObfDereferenceObject@4
 
 @@1:
 	ret
@@ -147,20 +147,20 @@ _NormalRoutine@12 PROC
 	; [esp + 0xCh] = SystemArgument2
 
 	; Move parameters for the forwarded call to function & push back return address
-	mov		eax, [esp]
-	xchg	[esp + 0Ch], eax
-	xchg	[esp + 8h], eax
-	xchg	[esp + 4h], eax
-	mov		[esp], eax
+	mov             eax, [esp]
+	xchg            [esp + 0Ch], eax
+	xchg            [esp + 8h], eax
+	xchg            [esp + 4h], eax
+	mov             [esp], eax
 
 	; First call our NormalRoutine_Proc from the C file
 	;  BOOL __stdcall NormalRoutine_Proc(PVOID NormalContext, PVOID SystemArgument1, PVOID SystemArgument2)
 	;
-	call	_NormalRoutine_Proc@12
+	call            _NormalRoutine_Proc@12
 
 	; Act depending on return value
 	test	eax, eax
-	jz		@@1
+	jz              @@1
 
 	; Then invoke ObDereferenceObject(g_DriverObject)
 	;INFO: ObfDereferenceObject is declared as __fastcall calling convention
@@ -168,8 +168,8 @@ _NormalRoutine@12 PROC
 	; IMPORTANT: We need to invoke ObfDereferenceObject via a JMP because it will be freeing the driver
 	;            memory that our code runs from, thus can't return into it via a CALL instruction!
 	;
-	mov		ecx, _g_DriverObject
-	jmp		__imp_@ObfDereferenceObject@4
+	mov             ecx, _g_DriverObject
+	jmp             __imp_@ObfDereferenceObject@4
 
 @@1:
 	ret
