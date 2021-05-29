@@ -35,12 +35,12 @@
 struct DLL_STATS{
 	//INFO: Cannot use constructor/destructor!
 
-	SECTION_TYPE secType;				//Tye of section
-	PVOID Section;						//If not NULL, Section object (for that DLL being injected)
-	ULONG uRVA_ShellCode;				//If not 0, RVA offset to the ShellCode in the injected DLL - must be UserModeNormalRoutine() function in dll_asm64.asm/dll_asm32.asm files
-	ULONG uRVA_DllName;					//If not 0, RVA offset of the injected DLL name as null-terminated WCHAR string
-	PVOID PreferredAddress;				//If not NULL, preferred load base-address for the injected DLL (after ASLR relocation)
-	ULONG SizeOfImage;					//If not 0, size of the section in BYTEs
+	SECTION_TYPE secType;             //Tye of section
+	PVOID Section;                    //If not NULL, Section object (for that DLL being injected)
+	ULONG uRVA_ShellCode;             //If not 0, RVA offset to the ShellCode in the injected DLL - must be UserModeNormalRoutine() function in dll_asm64.asm/dll_asm32.asm files
+	ULONG uRVA_DllName;               //If not 0, RVA offset of the injected DLL name as null-terminated WCHAR string
+	PVOID PreferredAddress;	          //If not NULL, preferred load base-address for the injected DLL (after ASLR relocation)
+	ULONG SizeOfImage;                //If not 0, size of the section in BYTEs
 
 	bool IsValid()
 	{
