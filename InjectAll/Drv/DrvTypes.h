@@ -36,15 +36,15 @@
 #include "SharedDefs.h"
 
 
-//#define DBG_VERBOSE_DRV				//Uncomment this line to make verbose debugging output for the driver's DEBUG build
+//#define DBG_VERBOSE_DRV                          //Uncomment this line to make verbose debugging output for the driver's DEBUG build
 
 
 
-#define DBG_PREFIX DBG_PREFIX_ALL "Drv: "		//Prefix to be added in all DbgPrint call in this project
+#define DBG_PREFIX DBG_PREFIX_ALL "Drv: "          //Prefix to be added in all DbgPrint call in this project
 
 #define DbgPrintLine(s, ...) DbgPrint(DBG_PREFIX s "\n", __VA_ARGS__)
 
-//#define LIMIT_INJECTION_TO_PROC L"notepad.exe"		//Process to limit injection to (only in Debugger builds)
+//#define LIMIT_INJECTION_TO_PROC L"notepad.exe"   //Process to limit injection to (only in Debugger builds)
 
 
 
@@ -61,7 +61,7 @@
 
 enum IMAGE_LOAD_FLAGS
 {
-	flImageNotifySet,				//[set] when PsSetLoadImageNotifyRoutine was enabled
+	flImageNotifySet,                //[set] when PsSetLoadImageNotifyRoutine was enabled
 };
 
 
@@ -85,8 +85,8 @@ static const UNICODE_STRING name = RTL_CONSTANT_STRINGW_(label(__))
 
 
 enum SECTION_TYPE{
-	SEC_TP_NATIVE = 'n',			//Native section - meaning: 64-bit on a 64-bit OS, or 32-bit on a 32-bit OS
-	SEC_TP_WOW = 'w',				//WOW64 section - meaning: 32-bit on a 64-bit OS
+	SEC_TP_NATIVE = 'n',     //Native section - meaning: 64-bit on a 64-bit OS, or 32-bit on a 32-bit OS
+	SEC_TP_WOW = 'w',        //WOW64 section - meaning: 32-bit on a 64-bit OS
 };
 
 
@@ -94,8 +94,8 @@ enum SECTION_TYPE{
 //Path where fake.dll is located on disk
 //INFO: To make this injection work, the DLL must be placed in the appropriate System32 folder
 //
-#define INJECTED_DLL_NT_PATH_NTV "\\systemroot\\system32\\" INJECTED_DLL_FILE_NAME		//Native
-#define INJECTED_DLL_NT_PATH_WOW "\\systemroot\\syswow64\\" INJECTED_DLL_FILE_NAME32	//WOW on a 64-bit OS
+#define INJECTED_DLL_NT_PATH_NTV "\\systemroot\\system32\\" INJECTED_DLL_FILE_NAME        //Native
+#define INJECTED_DLL_NT_PATH_WOW "\\systemroot\\syswow64\\" INJECTED_DLL_FILE_NAME32      //WOW on a 64-bit OS
 
 
 //Undocumented structs:
