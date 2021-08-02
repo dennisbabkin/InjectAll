@@ -29,7 +29,7 @@
 
 #include <Windows.h>                //Win32 APIs
 #include <winnt.h>                  //Internal function
-#include <winternl.h                //Also internal stuff
+#include <winternl.h>               //Also internal stuff
 
 #include <stddef.h>
 
